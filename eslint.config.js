@@ -5,6 +5,7 @@ const config = defineConfig({
 	typescript: true,
 	ignores: [
 		'**/tests/**/fixtures/**',
+		'./apps/playground/**/*',
 	],
 });
 
