@@ -1,4 +1,5 @@
 import type { ResolvedOptions } from './types';
+import type { HTMLBeautifyOptions } from 'js-beautify';
 
 export const VOID_TAGS = new Set([
 	'area',
@@ -34,3 +35,11 @@ export const DOCUMENT_METHODS_TO_PATCH = [
 	'querySelector',
 	'querySelectorAll',
 ];
+
+export const DEFAULT_OPTIONS: HTMLBeautifyOptions = {
+	end_with_newline: true,
+	eol: '\n',
+	indent_with_tabs: true,
+	wrap_line_length: 100,
+	indent_size: 4,
+};

@@ -14,12 +14,23 @@ function build_exclude_predicate(
 	return (filename: string) => exclude.some(pattern => filename.includes(pattern));
 }
 
+function resolve_format_option(
+	option: ShadowDOMOptions['formatOutput'],
+): ResolvedOptions['formatOutput'] {
+	if (option === false)
+		return false;
+	if (option === true || option === undefined)
+		return {};
+	return option;
+}
+
 function resolve_options(options: ShadowDOMOptions): ResolvedOptions {
 	const merged = { ...DEFAULT_PLUGIN_OPTIONS, ...options } as ResolvedOptions;
 
 	return {
 		...merged,
 		exclude: build_exclude_predicate(options.exclude),
+		formatOutput: resolve_format_option(options.formatOutput),
 	};
 }
 

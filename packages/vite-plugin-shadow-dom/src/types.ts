@@ -1,3 +1,5 @@
+import type { HTMLBeautifyOptions } from 'js-beautify';
+
 export type ShadowMode = 'open' | 'closed';
 export type CSSStrategy = 'link' | 'constructable';
 
@@ -73,6 +75,14 @@ export interface ShadowDOMOptions {
 	 * @default true
 	 */
 	patchDocument?: boolean;
+
+	/**
+	 * Fine-tune the js-beautify HTML formatter applied to the build output.
+	 * Only takes effect during production builds, never in dev server.
+	 * Set to false to disable formatting entirely.
+	 * @default true (with sensible defaults)
+	 */
+	formatOutput?: boolean | HTMLBeautifyOptions;
 }
 
 export type ResolvedOptions = Required<ShadowDOMOptions>;
