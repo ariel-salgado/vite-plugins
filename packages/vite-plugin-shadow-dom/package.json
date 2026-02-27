@@ -1,7 +1,7 @@
 {
   "name": "@ariel-salgado/vite-plugin-shadow-dom",
   "type": "module",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Vite plugin that isolates page content into a Shadow DOM",
   "author": "Ariel Salgado <ariel.salgado.acevedo@gmail.com> (https://github.com/ariel-salgado/)",
   "license": "MIT",
