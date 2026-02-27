@@ -28,14 +28,14 @@ export function transform_html(html: string, opts: ResolvedOptions): string {
 	const script = build_bootstrap_script(css_hrefs, js_srcs, opts);
 
 	const injection = `
-		<div id="${opts.hostId}"></div>
+		<div id="${opts.hostId}" style="display: contents; width: 100%; height: 100%;"></div>
 
 		<template id="${opts.templateId}">
-			${slice.element.trim()}
+		  ${slice.element.trim()}
 		</template>
 
 		${script}
-  	`;
+	`;
 
 	const body_with_host = body_slice.content.replace('PLACEHOLDER', injection);
 

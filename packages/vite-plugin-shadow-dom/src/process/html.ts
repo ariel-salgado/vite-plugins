@@ -11,12 +11,11 @@ export function extract_assets(html: string): ExtractedAssets {
 	const css_hrefs: string[] = [];
 	const js_srcs: string[] = [];
 
-	html = html.replace(/<link\b[^>]*>/g, (tag) => {
+	html.replace(/<link\b[^>]*>/g, (tag) => {
 		if (get_attr(tag, 'rel') === 'stylesheet') {
 			const href = get_attr(tag, 'href');
 			if (href)
 				css_hrefs.push(href);
-			return '';
 		}
 		return tag;
 	});

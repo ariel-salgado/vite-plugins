@@ -1,40 +1,40 @@
 import type { ResolvedOptions } from '../types.js';
 
-import { build_document_patch } from '../dom/patch.js';
+import { build_document_patch, build_style_observer } from '../dom/patch.js';
 
 export function build_bootstrap_script(
 	css_hrefs: string[],
 	js_srcs: string[],
 	opts: ResolvedOptions,
 ): string {
-	const css_block
-		= css_hrefs.length > 0
-			? opts.cssStrategy === 'constructable'
-				? build_constructable_css(css_hrefs)
-				: build_link_css(css_hrefs)
-			: '';
+	const css_block = css_hrefs.length > 0
+		? opts.cssStrategy === 'constructable'
+			? build_constructable_css(css_hrefs)
+			: build_link_css(css_hrefs)
+		: '';
 
 	const js_block = js_srcs.map(src => `  import('${src}');`).join('\n');
-
-	const patch_block = opts.patchDocument
-		? build_document_patch(opts.shadowRootGlobal)
-		: '';
+	const patch_block = opts.patchDocument ? build_document_patch(opts.shadowRootGlobal) : '';
+	const style_observer = build_style_observer(opts.shadowRootGlobal);
 
 	return `
 		<script type="module">
 			const host = document.getElementById('${opts.hostId}');
+
 			const shadow = host.attachShadow({
-				mode: '${opts.mode}',
-				delegatesFocus: ${opts.delegatesFocus},
-				serializable: ${opts.serializable},
+			  mode: '${opts.mode}',
+			  delegatesFocus: ${opts.delegatesFocus},
+			  serializable: ${opts.serializable},
 			});
 
 			const tpl = document.getElementById('${opts.templateId}');
+
 			shadow.appendChild(tpl.content.cloneNode(true));
 
 			window['${opts.shadowRootGlobal}'] = shadow;
 
 			${patch_block}
+			${style_observer}
 			${css_block}
 			${js_block}
 		</script>
