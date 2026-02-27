@@ -5,6 +5,7 @@ import {
 	get_attr,
 	slice_body,
 } from '../../src/process/html';
+import { read_fixture } from '../helpers.js';
 
 describe('get_attr', () => {
 	it('extracts attribute regardless of position', () => {
@@ -18,37 +19,35 @@ describe('get_attr', () => {
 });
 
 describe('extract_assets', () => {
-	it('extracts stylesheet links and module scripts', () => {
-		const html = `
-			<head>
-				<link rel="stylesheet" href="/assets/index.css">
-				<link rel="icon" href="/favicon.ico">
-			</head>
-
-			<body>
-				<script type="module" src="/assets/index.js"></script>
-			</body>
-		`;
-
+	it('extracts all stylesheet links and module scripts from fixture', () => {
+		const html = read_fixture('with-assets.html');
 		const result = extract_assets(html);
-		expect(result.css_hrefs).toEqual(['/assets/index.css']);
-		expect(result.js_srcs).toEqual(['/assets/index.js']);
-		expect(result.html).not.toContain('index.css');
-		expect(result.html).not.toContain('index.js');
-		expect(result.html).toContain('favicon.ico');
+
+		expect(result.css_hrefs).toEqual([
+			'/assets/index-Dt4BqWtC.css',
+			'/assets/vendor-CXs3H1aB.css',
+		]);
+		expect(result.js_srcs).toEqual([
+			'/assets/index-Bb-pexYh.js',
+			'/assets/vendor-D3kQz1Rp.js',
+		]);
 	});
 
-	it('collects multiple CSS chunks and JS modules', () => {
-		const html = `
-			<link rel="stylesheet" href="/a.css">
-			<link rel="stylesheet" href="/b.css">
-			<script type="module" src="/a.js"></script>
-			<script type="module" src="/b.js"></script>
-		`;
-
+	it('removes extracted tags from the returned html', () => {
+		const html = read_fixture('with-assets.html');
 		const result = extract_assets(html);
-		expect(result.css_hrefs).toEqual(['/a.css', '/b.css']);
-		expect(result.js_srcs).toEqual(['/a.js', '/b.js']);
+
+		expect(result.html).not.toContain('index-Dt4BqWtC.css');
+		expect(result.html).not.toContain('vendor-CXs3H1aB.css');
+		expect(result.html).not.toContain('index-Bb-pexYh.js');
+		expect(result.html).not.toContain('vendor-D3kQz1Rp.js');
+	});
+
+	it('preserves non-stylesheet links', () => {
+		const html = read_fixture('with-assets.html');
+		const result = extract_assets(html);
+
+		expect(result.html).toContain('favicon.ico');
 	});
 
 	it('preserves inline module scripts (no src)', () => {
@@ -64,6 +63,13 @@ describe('extract_assets', () => {
 		expect(result.js_srcs).toHaveLength(0);
 		expect(result.html).toContain('/legacy.js');
 	});
+
+	it('returns empty arrays when no assets are present', () => {
+		const html = read_fixture('no-app.html');
+		const result = extract_assets(html);
+		expect(result.css_hrefs).toHaveLength(0);
+		expect(result.js_srcs).toHaveLength(0);
+	});
 });
 
 describe('slice_body', () => {
@@ -76,15 +82,24 @@ describe('slice_body', () => {
 		expect(result!.after).toBe('</body></html>');
 	});
 
-	it('uses lastIndexOf for </body> to handle edge cases', () => {
+	it('uses lastIndexOf for </body> — immune to </body> strings inside scripts', () => {
 		const html = `<body><script>const s = '</body>';</script></body>`;
 		const result = slice_body(html);
 		expect(result).not.toBeNull();
 		expect(result!.content).toContain('const s = \'</body>\'');
 	});
 
-	it('returns null when body is absent', () => {
+	it('returns null when body element is absent', () => {
 		expect(slice_body('<html><head></head></html>')).toBeNull();
+	});
+
+	it('slices body from a real fixture', () => {
+		const html = read_fixture('with-siblings.html');
+		const result = slice_body(html);
+		expect(result).not.toBeNull();
+		expect(result!.content).toContain('id="app"');
+		expect(result!.content).toContain('header');
+		expect(result!.content).toContain('footer');
 	});
 });
 
@@ -125,5 +140,19 @@ describe('find_element_by_id', () => {
 		const html = `<div id="app"><divider></divider></div>`;
 		const result = find_element_by_id(html, 'app');
 		expect(result!.element.trim()).toBe('<div id="app"><divider></divider></div>');
+	});
+
+	it('finds #app inside a real fixture with siblings', () => {
+		const html = read_fixture('with-siblings.html');
+		const result = find_element_by_id(html, 'app');
+		expect(result).not.toBeNull();
+		expect(result!.element).toContain('<p>hello</p>');
+		expect(result!.before).toContain('<div>header</div>');
+		expect(result!.after).toContain('<div>footer</div>');
+	});
+
+	it('returns null when fixture has no matching id', () => {
+		const html = read_fixture('no-app.html');
+		expect(find_element_by_id(html, 'app')).toBeNull();
 	});
 });
