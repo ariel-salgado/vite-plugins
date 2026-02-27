@@ -2,6 +2,7 @@ import type { ResolvedOptions, ShadowDOMOptions } from './types.js';
 import type { Plugin } from 'vite';
 
 import { DEFAULT_PLUGIN_OPTIONS } from './constants.js';
+import { format_html } from './process/format.js';
 import { transform_html } from './process/transform.js';
 
 function build_exclude_predicate(
@@ -47,6 +48,16 @@ export function shadowDOM(options: ShadowDOMOptions = {}): Plugin {
 					return html;
 				return transform_html(html, resolved);
 			},
+		},
+		generateBundle(_, bundle) {
+			for (const filename of Object.keys(bundle)) {
+				const chunk = bundle[filename];
+
+				if (chunk.type === 'asset' && filename.endsWith('.html')) {
+					const source = chunk.source as string;
+					chunk.source = format_html(source);
+				}
+			}
 		},
 	};
 }
