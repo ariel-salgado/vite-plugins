@@ -1,0 +1,48 @@
+{
+  "name": "@ariel-salgado/vite-plugins",
+  "type": "module",
+  "version": "0.0.1",
+  "description": "Collection of vite plugins",
+  "author": "Ariel Salgado <ariel.salgado.acevedo@gmail.com> (https://github.com/ariel-salgado/)",
+  "license": "MIT",
+  "homepage": "https://github.com/ariel-salgado/vite-plugins",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ariel-salgado/vite-plugins.git"
+  },
+  "keywords": [
+    "vite"
+  ],
+  "publishConfig": {
+    "access": "public"
+  },
+  "scripts": {
+    "lint": "eslint",
+    "lint:fix": "eslint --fix"
+  },
+  "devDependencies": {
+    "@ariel-salgado/eslint-config": "^0.4.0",
+    "eslint": "^10.0.2",
+    "lint-staged": "^16.2.7",
+    "simple-git-hooks": "^2.13.1"
+  },
+  "simple-git-hooks": {
+    "pre-commit": "bunx lint-staged"
+  },
+  "lint-staged": {
+    "*": "eslint --fix"
+  },
+  "workspaces": {
+    "packages": [
+      "apps/*",
+      "packages/*"
+    ],
+    "catalog": {
+      "@vitest/browser-playwright": "^4.0.18",
+      "tsdown": "^0.21.0-beta.2",
+      "typescript": "^5.9.3",
+      "vite": "^8.0.0-beta.15",
+      "vitest": "^4.0.18"
+    }
+  }
+}
