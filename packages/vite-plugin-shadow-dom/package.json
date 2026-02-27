@@ -1,0 +1,43 @@
+{
+  "name": "@ariel-salgado/vite-plugin-shadow-dom",
+  "type": "module",
+  "version": "0.0.1",
+  "description": "Vite plugin that isolates page content into a Shadow DOM",
+  "author": "Ariel Salgado <ariel.salgado.acevedo@gmail.com> (https://github.com/ariel-salgado/)",
+  "license": "MIT",
+  "homepage": "https://github.com/ariel-salgado/vite-plugins/packages/vite-plugin-shadow-dom#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ariel-salgado/vite-plugins.git"
+  },
+  "keywords": [
+    "vite"
+  ],
+  "exports": {
+    ".": "./dist/index.mjs",
+    "./package.json": "./package.json"
+  },
+  "main": "./dist/index.mjs",
+  "module": "./dist/index.mjs",
+  "types": "./dist/index.d.mts",
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "tsdown",
+    "dev": "tsdown --watch",
+    "test": "vitest",
+    "release": "sh ../../scripts/release.sh",
+    "prepublishOnly": "bun run build"
+  },
+  "peerDependencies": {
+    "vite": "^7.0.0 || ^8.0.0-0"
+  },
+  "devDependencies": {
+    "@vitest/browser-playwright": "catalog:",
+    "tsdown": "catalog:",
+    "typescript": "catalog:",
+    "vite": "catalog:",
+    "vitest": "catalog:"
+  }
+}
