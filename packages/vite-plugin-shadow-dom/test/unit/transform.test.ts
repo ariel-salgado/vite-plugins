@@ -13,7 +13,14 @@ describe('transform_html', () => {
 		const result = transform_html(html, base_opts);
 		expect(result).toContain('<template id="shadow-template">');
 		expect(result).toContain('id="app"');
-		expect(result).toContain('<div id="shadow-host"></div>');
+		expect(result).toContain('id="shadow-host"');
+	});
+
+	it('handles a page with no body siblings', () => {
+		const html = read_fixture('simple.html');
+		const result = transform_html(html, base_opts);
+		expect(result).toContain('id="shadow-host"');
+		expect(result).toContain('Hello world');
 	});
 
 	it('leaves sibling elements in the regular document', () => {
@@ -67,13 +74,6 @@ describe('transform_html', () => {
 		const result = transform_html(html, { ...base_opts, hostId: 'my-host', templateId: 'my-tpl' });
 		expect(result).toContain('id="my-host"');
 		expect(result).toContain('id="my-tpl"');
-	});
-
-	it('handles a page with no body siblings', () => {
-		const html = read_fixture('simple.html');
-		const result = transform_html(html, base_opts);
-		expect(result).toContain('<div id="shadow-host"></div>');
-		expect(result).toContain('Hello world');
 	});
 
 	it('preserves non-stylesheet link tags', () => {

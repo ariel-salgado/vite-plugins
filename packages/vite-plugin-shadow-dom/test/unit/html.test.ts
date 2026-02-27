@@ -37,8 +37,8 @@ describe('extract_assets', () => {
 		const html = read_fixture('with-assets.html');
 		const result = extract_assets(html);
 
-		expect(result.html).not.toContain('index-Dt4BqWtC.css');
-		expect(result.html).not.toContain('vendor-CXs3H1aB.css');
+		expect(result.html).toContain('index-Dt4BqWtC.css');
+		expect(result.html).toContain('vendor-CXs3H1aB.css');
 		expect(result.html).not.toContain('index-Bb-pexYh.js');
 		expect(result.html).not.toContain('vendor-D3kQz1Rp.js');
 	});
@@ -69,6 +69,22 @@ describe('extract_assets', () => {
 		const result = extract_assets(html);
 		expect(result.css_hrefs).toHaveLength(0);
 		expect(result.js_srcs).toHaveLength(0);
+	});
+
+	it('keeps stylesheet link tags in the html (not removed)', () => {
+		const html = read_fixture('with-assets.html');
+		const result = extract_assets(html);
+
+		expect(result.html).toContain('index-Dt4BqWtC.css');
+		expect(result.html).toContain('vendor-CXs3H1aB.css');
+	});
+
+	it('removes module script tags from the html', () => {
+		const html = read_fixture('with-assets.html');
+		const result = extract_assets(html);
+
+		expect(result.html).not.toContain('index-Bb-pexYh.js');
+		expect(result.html).not.toContain('vendor-D3kQz1Rp.js');
 	});
 });
 
