@@ -36,10 +36,14 @@ export const DOCUMENT_METHODS_TO_PATCH = [
 	'querySelectorAll',
 ];
 
-export const DEFAULT_OPTIONS: HTMLBeautifyOptions = {
+export const DEFAULT_BEAUTIFY_OPTIONS: HTMLBeautifyOptions = {
 	end_with_newline: true,
 	eol: '\n',
 	indent_with_tabs: true,
-	wrap_line_length: 100,
 	indent_size: 4,
+	wrap_line_length: 0,
+	indent_inner_html: true,
+	max_preserve_newlines: 0,
+	preserve_newlines: false,
+	extra_liners: [],
 };
