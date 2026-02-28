@@ -145,11 +145,11 @@ shadowDOM({
 When enabled, the final HTML output is formatted with [js-beautify](https://github.com/beautify-web/js-beautify) before it is written to disk.
 This only runs during production builds — the dev server output is never formatted.
 
-Set to `true` to use the default formatting options:
+Set to `false` to use disable the formatting process:
 
 ```typescript
 shadowDOM({
-	formatOutput: true,
+	formatOutput: false,
 });
 ```
 
