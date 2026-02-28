@@ -85,7 +85,10 @@ export interface ShadowDOMOptions {
 	formatOutput?: boolean | HTMLBeautifyOptions;
 }
 
-export type ResolvedOptions = Required<ShadowDOMOptions>;
+export type ResolvedOptions = Omit<Required<ShadowDOMOptions>, 'formatOutput' | 'exclude'> & {
+	formatOutput: false | HTMLBeautifyOptions;
+	exclude: (filename: string) => boolean;
+};
 
 export interface ExtractedAssets {
 	html: string;

@@ -16,13 +16,13 @@ function build_exclude_predicate(
 }
 
 function resolve_format_option(
-	option: ShadowDOMOptions['formatOutput'],
+	options: ShadowDOMOptions['formatOutput'],
 ): ResolvedOptions['formatOutput'] {
-	if (option === false)
+	if (options === false)
 		return false;
-	if (option === true || option === undefined)
+	if (options === true || options === undefined)
 		return {};
-	return option;
+	return options;
 }
 
 function resolve_options(options: ShadowDOMOptions): ResolvedOptions {
@@ -44,18 +44,23 @@ export function shadowDOM(options: ShadowDOMOptions = {}): Plugin {
 		transformIndexHtml: {
 			order: 'post',
 			handler(html, ctx) {
-				if ((resolved.exclude as ((filename: string) => boolean))(ctx.filename))
+				if (resolved.exclude(ctx.filename))
 					return html;
 				return transform_html(html, resolved);
 			},
 		},
 		generateBundle(_, bundle) {
+			if (resolved.formatOutput === false)
+				return;
+
 			for (const filename of Object.keys(bundle)) {
 				const chunk = bundle[filename];
-
 				if (chunk.type === 'asset' && filename.endsWith('.html')) {
 					const source = chunk.source as string;
-					chunk.source = format_html(source);
+					chunk.source = format_html(
+						source,
+						resolved.formatOutput,
+					);
 				}
 			}
 		},
