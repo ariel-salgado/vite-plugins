@@ -2,16 +2,21 @@
   "name": "@ariel-salgado/vite-plugin-shadow-dom",
   "type": "module",
   "version": "0.0.3",
-  "description": "Vite plugin that isolates page content into a Shadow DOM",
+  "description": "Vite plugin that isolates your app into a Shadow DOM — with zero changes to your application code",
   "author": "Ariel Salgado <ariel.salgado.acevedo@gmail.com> (https://github.com/ariel-salgado/)",
   "license": "MIT",
-  "homepage": "https://github.com/ariel-salgado/vite-plugins/packages/vite-plugin-shadow-dom#readme",
+  "homepage": "https://github.com/ariel-salgado/vite-plugins/tree/main/packages/vite-plugin-shadow-dom#readme",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/ariel-salgado/vite-plugins.git"
   },
   "keywords": [
-    "vite"
+    "vite",
+    "vite-plugin",
+    "shadow-dom",
+    "encapsulation",
+    "css-isolation",
+    "dom-isolation"
   ],
   "exports": {
     ".": "./dist/index.mjs",
