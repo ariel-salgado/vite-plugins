@@ -28,6 +28,7 @@ export const DEFAULT_PLUGIN_OPTIONS: Partial<ResolvedOptions> = {
 	appId: 'app',
 	shadowRootGlobal: '__shadowRoot',
 	patchDocument: true,
+	formatOutput: true,
 };
 
 export const DOCUMENT_METHODS_TO_PATCH = [
