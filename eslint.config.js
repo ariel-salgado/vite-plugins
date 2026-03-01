@@ -6,6 +6,7 @@ const config = defineConfig({
 	ignores: [
 		'**/tests/**/fixtures/**',
 		'playgrounds/**/*',
+		'.changeset/*.md',
 	],
 });
 
