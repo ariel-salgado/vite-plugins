@@ -2,6 +2,7 @@
   "name": "@ariel-salgado/vite-plugins",
   "type": "module",
   "version": "0.0.1",
+  "packageManager": "bun@1.3.9",
   "description": "Collection of vite plugins",
   "author": "Ariel Salgado <ariel.salgado.acevedo@gmail.com> (https://github.com/ariel-salgado/)",
   "license": "MIT",
@@ -13,15 +14,18 @@
   "keywords": [
     "vite"
   ],
-  "publishConfig": {
-    "access": "public"
-  },
   "scripts": {
+    "build": "bun run --filter='./packages/*' build",
     "lint": "eslint",
-    "lint:fix": "eslint --fix"
+    "lint:fix": "eslint --fix",
+    "changeset": "changeset",
+    "changeset:version": "changeset version",
+    "changeset:release": "bun run build && changeset publish"
   },
   "devDependencies": {
     "@ariel-salgado/eslint-config": "^0.4.0",
+    "@changesets/cli": "2.29.8",
+    "@svitejs/changesets-changelog-github-compact": "1.2.0",
     "eslint": "^10.0.2",
     "lint-staged": "^16.2.7",
     "simple-git-hooks": "^2.13.1"
@@ -34,7 +38,7 @@
   },
   "workspaces": {
     "packages": [
-      "apps/*",
+      "playgrounds/*",
       "packages/*"
     ],
     "catalog": {
