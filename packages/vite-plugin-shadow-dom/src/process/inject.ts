@@ -1,6 +1,6 @@
 import type { ResolvedOptions } from '../types.js';
 
-import { build_document_patch, build_style_observer } from '../dom/patch.js';
+import { build_document_patch, build_style_observer } from '../client/patch.js';
 
 export function build_bootstrap_script(
 	css_hrefs: string[],

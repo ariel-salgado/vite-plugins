@@ -1,5 +1,5 @@
 import { afterEach, describe, expect, it } from 'vitest';
-import { build_document_patch } from '../../src/dom/patch.js';
+import { build_document_patch } from '../../src/client/patch.js';
 
 const GLOBAL = '__testShadow';
 
