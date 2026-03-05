@@ -11,5 +11,7 @@
   "access": "public",
   "baseBranch": "main",
   "bumpVersionsWithWorkspaceProtocolOnly": true,
-  "ignore": []
+  "ignore": [
+    "!(@ariel-salgado/*)"
+  ]
 }
