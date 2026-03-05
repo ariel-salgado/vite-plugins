@@ -1,6 +1,0 @@
-#!/usr/bin/env sh
-
-set -e
-
-bun lint
-bun check
