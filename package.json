@@ -32,7 +32,7 @@
   },
   "simple-git-hooks": {
     "pre-commit": "bunx lint-staged",
-    "pre-push": "bun install --frozen-lockfile && bun lint"
+    "pre-push": "./.githooks/pre-push.sh"
   },
   "lint-staged": {
     "*": "eslint --fix"
