@@ -18,6 +18,7 @@
     "build": "bun run --filter='./packages/*' build",
     "lint": "eslint",
     "lint:fix": "eslint --fix",
+    "check": "bun --filter './packages/*' exec tsc --noEmit",
     "changeset": "changeset",
     "changeset:version": "changeset version",
     "changeset:release": "bun run build && changeset publish"
