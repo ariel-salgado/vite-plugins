@@ -1,15 +1,12 @@
 {
-  "name": "vainilla",
-  "type": "module",
-  "version": "0.0.1",
+  "name": "vanilla",
   "private": true,
+  "version": "0.0.0",
+  "type": "module",
   "scripts": {
     "dev": "vite",
     "build": "tsc && vite build",
     "preview": "vite preview"
-  },
-  "dependencies": {
-    "@ariel-salgado/vite-plugin-shadow-dom": "workspace:*"
   },
   "devDependencies": {
     "typescript": "catalog:",
