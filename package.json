@@ -2,7 +2,7 @@
   "name": "@ariel-salgado/vite-plugins",
   "type": "module",
   "version": "0.0.1",
-  "packageManager": "bun@1.3.10",
+  "packageManager": "bun@1.3.9",
   "description": "Collection of vite plugins",
   "author": "Ariel Salgado <ariel.salgado.acevedo@gmail.com> (https://github.com/ariel-salgado/)",
   "license": "MIT",
