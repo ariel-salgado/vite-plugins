@@ -15,24 +15,24 @@
     "vite"
   ],
   "scripts": {
-    "build": "bun run --filter='./packages/*' build",
+    "build": "bun run --filter='@ariel-salgado/*' build",
     "lint": "eslint",
     "lint:fix": "eslint --fix",
-    "check": "bun run --filter='./packages/*' check",
+    "check": "bun run --filter='@ariel-salgado/*' check",
     "changeset": "changeset",
     "changeset:version": "changeset version",
     "changeset:release": "bun run build && changeset publish"
   },
   "devDependencies": {
     "@ariel-salgado/eslint-config": "0.4.0",
-    "@changesets/cli": "2.29.8",
+    "@changesets/cli": "2.30.0",
     "@svitejs/changesets-changelog-github-compact": "1.2.0",
-    "eslint": "10.0.2",
-    "lint-staged": "16.3.0",
+    "eslint": "10.0.3",
+    "lint-staged": "16.3.2",
     "simple-git-hooks": "2.13.1"
   },
   "simple-git-hooks": {
-    "pre-commit": "bunx lint-staged"
+    "pre-commit": "bun run lint-staged"
   },
   "lint-staged": {
     "*": "eslint --fix"
