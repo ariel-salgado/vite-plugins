@@ -27,12 +27,7 @@ jobs:
           bun-version: 1.3.10
 
       - name: Install dependencies
-        shell: bash
-        run: bun install --ignore-scripts
-
-      - name: Check for dirty git repo
-        shell: bash
-        run: git diff --quiet --ignore-submodules HEAD
+        run: bun ci
 
       - name: Create Release PR or Publish to npm
         uses: changesets/action@v1
