@@ -10,6 +10,7 @@ enabled = true
 [install]
 exact = true
 auto = "auto"
+linker = "isolated"
 
 [build]
 typescript = true
