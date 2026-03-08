@@ -28,7 +28,7 @@ jobs:
 
       - name: Install dependencies
         shell: bash
-        run: bun install
+        run: bun install --ignore-scripts
 
       - name: Check for dirty git repo
         shell: bash
